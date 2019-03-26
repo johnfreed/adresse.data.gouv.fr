@@ -1,149 +1,86 @@
 import React from 'react'
-import Link from 'next/link'
+import {pick} from 'lodash'
 import DownloadIcon from 'react-icons/lib/fa/download'
 import Page from '../layouts/main'
 
 import Head from '../components/head'
 import Section from '../components/section'
-import ButtonLink from '../components/button-link'
+
+import BanCard from '../components/ban-card'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
+const actors = {
+  DGFIP: 'https://portail.dgfip.finances.gouv.fr',
+  ARCEP: 'https://www.arcep.fr/',
+  'Bases Adresse Locales': 'https://adresse.data.gouv.fr/bases-locales',
+  'La Poste': 'https://www.laposte.fr/',
+  IGN: 'http://www.ign.fr/'
+}
+
 export default () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<DownloadIcon />} />
-    <Section title='Base Adresse Nationale' subtitle='Données de référence issues d’une coopération entre l’État, l’IGN, La Poste et OpenStreetMap France'>
-      <div>
-        <p>Les données listées ci-dessous sont issues du rapprochement des données et traitements adresses des partenaires de la BAN.</p>
-        <p>Elles <strong>peuvent être téléchargées gratuitement</strong>,
-        et sont <strong>disponibles sous deux formes</strong>.</p>
+    <Section>
+      <h2>Données nationales</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et est augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc vitae laoreet arcu. Maecenas suscipit urna in blandit pretium. In eu nunc metus. Mauris libero ante, pellentesque at accumsan maximus, egestas et eros. Phasellus interdum commodo dictum. Mauris finibus magna eu nulla condimentum luctus. Vivamus iaculis nisl id consequat bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque blandit odio nec odio lobortis semper. Aliquam rutrum neque eget ipsum elementum rutrum. Etiam ac eros non felis varius aliquam ac vitae metus. Suspendisse potenti. Etiam viverra nunc eget tortor ultricies cursus. Vivamus feugiat lacus sit amet mauris aliquam, sed tincidunt est elementum.
+      </p>
+
+      <h2>Fichiers disponibles</h2>
+      <div className='cards'>
+        <BanCard
+          title='Base Adresse Nationale'
+          producer='Partenaires BAN'
+          licence='Pas de licence ou ODBL 1.0'
+          updateFreq='Hebdomadaire'
+          lastUpdate={new Date('11-28-2018')}
+          addresses='22 millions'
+          sources={pick(actors, ['DGFIP', 'ARCEP', 'Bases Adresse Locales'])}
+          millesime='2018'
+          label={false}
+          tagline='« Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non maximus enim »'
+          link='https://adresse.data.gouv.fr/data/ban-v0/'
+        />
+        <BanCard
+          title='Base Adresse Nationale enrichie'
+          producer='ETALAB'
+          licence='OdbL1.0'
+          updateFreq='Hebdomadaire'
+          lastUpdate={new Date('3-25-2019')}
+          addresses='22,6 millions'
+          certAddresses='2 millions'
+          sources={pick(actors, ['IGN', 'La Poste', 'DGFIP', 'Bases Adresse Locales'])}
+          millesime='2019'
+          label
+          tagline='« Sed sapien lacus, tempus id porta eu, sollicitudin vitae purus. Fusce rhoncus, quam volutpat bibendum »'
+          link='https://adresse.data.gouv.fr/data/adresses-merge/ban-bal/'
+        />
+        <BanCard
+          title='Adresses ouvertes'
+          producer='ETALAB'
+          licence='Licence Ouverte'
+          updateFreq='Hebdomadaire'
+          lastUpdate={new Date('3-25-2019')}
+          addresses='20 millions'
+          certAddresses='2 millions'
+          sources={pick(actors, ['DGFIP', 'ARCEP', 'Bases Adresse Locales'])}
+          millesime='2019'
+          tagline='« Sed a turpis fringilla, interdum velit ac, varius metus »'
+          link='https://adresse.data.gouv.fr/data/adresses-merge/cadastre-ftth-bal/'
+          label
+          focus
+        />
       </div>
 
-      <h3>Diffusion principale sans licence</h3>
-      <div className='row'>
-        <div>
-          <h4>Résumé des conditions d’utilisation</h4>
-          <p>En l’absence de licence, ce sont les règles de droit commun du Code des Relations entre le Public et l’Administration (CRPA) qui s’appliquent.</p>
-          <p>Vous êtes notamment autorisé(e) à :</p>
-          <ul>
-            <li>copier, distribuer et utiliser la base de données ;</li>
-            <li>produire des créations à partir de cette base de données ;</li>
-            <li>modifier, transformer et construire à partir de cette base de données.</li>
-          </ul>
-          <p>Tant que :</p>
-          <ul>
-            <li>vous mentionnez la source des données et sa date de millésime ;</li>
-            <li>vous ne dénaturez pas les données.</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Données</h4>
-          <div>
-            <div>
-              <p>Pour connaître précisement le contenu de ces données, <Link href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/ban-2015.md'><a>consultez le descriptif des données</a></Link>.</p>
-              <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
-              <Link href='/data/ban-v0'>
-                <ButtonLink>
-                  Accéder aux données
-                </ButtonLink>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <h3>Diffusion alternative sous licence ODbL (assurée par OpenStreetMap France)</h3>
-      <div className='row'>
-        <div>
-          <h4>Résumé de la licence</h4>
-          <p>La licence ODbL vous autorise à :</p>
-          <ul>
-            <li>copier, distribuer et utiliser la base de données ;</li>
-            <li>produire des créations à partir de cette base de données ;</li>
-            <li>modifier, transformer et construire à partir de cette base de données.</li>
-          </ul>
-          <p>Tant que :</p>
-          <ul>
-            <li>vous mentionnez la source des données ;</li>
-            <li>vous partagez à l’identique les bases de données dérivées ;</li>
-            <li>vous gardez ouvertes ces données.</li>
-          </ul>
-          <p>Pour plus de renseignements, consultez <a href='http://www.vvlibri.org/fr/licence/odbl/10/fr/legalcode' target='_blank' rel='noopener noreferrer'>la traduction française intégrale de la licence</a> ou le <a href='http://vvlibri.org/fr/licence/odbl/10/fr' target='_blank' rel='noopener noreferrer'>résumé en français</a> disponibles sur le site Veni Vidi Libri, ou bien le texte de référence en anglais sur <a href='http://opendatacommons.org/licenses/odbl/summary/' target='_blank' rel='noopener noreferrer'>Open Data Commons</a>.</p>
-        </div>
-        <div>
-          <h4>Données</h4>
-          <p>Les données proposées sous cette licence sont similaires à celles proposées sous licence gratuite de repartage. Néanmoins :</p>
-          <ul>
-            <li>le libellé à la norme AFNOR et le libellé d’acheminement ne sont pas disponibles ;</li>
-            <li>les données subissent <a href='https://github.com/etalab/ban-data/blob/master/scripts/clean.sql'>des traitements qualité supplémentaires.</a></li>
-          </ul>
-          <p>Données en téléchargement pour une commune, un département, ou la France entière, et disponibles aux formats CSV, Shapefile et JSON.</p>
-          <ButtonLink href='http://bano.openstreetmap.fr/BAN_odbl'>
-            Accéder aux données
-          </ButtonLink>
-        </div>
-      </div>
-
-      <style jsx>{`
-        .row {
-          display: flex;
-          justify-content: space-between;
-          flex-flow: wrap;
-          margin-bottom: 20px;
-        }
-
-        .row ul {
-          list-style: circle;
-        }
-
-        @media (min-width: 900px) {
-          .row > div {
-            width: 48%;
-          }
-        }
-      `}</style>
     </Section>
-
-    <Section title='En partenariat avec' subtitle=''>
-      <div className='partners'>
-        <div>
-          <a href='https://portail.dgfip.finances.gouv.fr/portail/accueilIAM.pl/'>
-            <img className='logo' src='/static/images/logos/dgfip.png' alt='DGFIP' />
-          </a>
-        </div>
-        <div>
-          <a href='http://ign.fr/'>
-            <img className='logo' src='/static/images/logos/IGN.jpg' alt='IGN' />
-          </a>
-        </div>
-        <div>
-          <a href='http://openstreetmap.fr/'>
-            <img className='logo' src='/static/images/logos/OSM.png' alt='OpenStreetMap France' />
-          </a>
-        </div>
-        <div>
-          <a href='http://www.laposte.fr/'>
-            <img className='logo' src='/static/images/logos/laposte.jpg' alt='La Poste' />
-          </a>
-        </div>
-      </div>
-
-      <style jsx>{`
-        .partners {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          grid-row-gap: 0.6em;
-          text-align: center;
-          align-items: center;
-        }
-
-        .logo {
-          height: 130px;
-        }
-      `}</style>
-    </Section>
+    <style jsx>{`
+      .cards {
+        display: flex;
+        justify-content: space-between;
+        flex-flow: wrap;
+      }
+    `}</style>
   </Page>
 )
