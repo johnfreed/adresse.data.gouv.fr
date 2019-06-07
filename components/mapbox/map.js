@@ -113,7 +113,7 @@ class Map extends React.PureComponent {
     const {switchStyle, height, fullscreen, children} = this.props
 
     return (
-      <div className='container'>
+      <div className='mapbox-container'>
         <div className='tools'>
           {shouldRender && children(this.map, this.marker, this.popUp, currentStyle)}
 
@@ -136,20 +136,14 @@ class Map extends React.PureComponent {
         </Head>
 
         <style jsx>{`
-          .container {
+          .mapbox-container {
             width: 100%;
-            height: ${fullscreen ? 'calc(100vh - 75px)' : `${height}px`};
-          }
-
-          @media (max-width: 700px) {
-            .container {
-              height: ${fullscreen ? 'calc(100vh - 130px)' : `${height}px`};
-            }
+            height: ${fullscreen ? 'calc(100vh - 73px)' : `${height}px`};
           }
 
           @media (max-width: 380px) {
-            .container {
-              height: ${fullscreen ? 'calc(100vh - 120px)' : `${height}px`};
+            .mapbox-container {
+              height: ${fullscreen ? 'calc(100vh - 63px)' : `${height}px`};
             }
           }
 
